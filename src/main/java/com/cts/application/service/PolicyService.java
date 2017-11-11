@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cts.application.dao.PolicyRepository;
 import com.cts.application.document.Policy;
+import com.cts.application.exception.PolicyServiceException;
 
 @Service
 public class PolicyService {
@@ -33,8 +34,11 @@ public class PolicyService {
 		return policies;
 	}
 
-	public Policy getPolicy(String policyNumber) {
+	public Policy getPolicy(String policyNumber) throws PolicyServiceException {
 		Policy policy = policyRepository.findOne(policyNumber);
+		if(policy==null) {
+			throw new PolicyServiceException("Policy Not Found");
+		}
 		return policy;
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.application.document.Policy;
+import com.cts.application.exception.PolicyServiceException;
 import com.cts.application.service.PolicyService;
 
 @RestController
@@ -58,7 +59,7 @@ public class PolicyServiceController {
 	}
 	@CrossOrigin
 	@RequestMapping("/getPolicy")
-	public Map<String, Object> getPolicy(@RequestParam String policyId) {
+	public Map<String, Object> getPolicy(@RequestParam String policyId) throws PolicyServiceException {
 		Policy policy = policyService.getPolicy(policyId);
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		if(policy != null) {
