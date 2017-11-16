@@ -1,5 +1,5 @@
 applications:
-- name: rusho-policy-service
+- name: rs-policy-service
   disk_quota: 1G
   instances: 1
   memory: 768M
