@@ -47,7 +47,7 @@ public class PolicyServiceController {
 	public Map<String, Object> getAllPolicies() {
 		List<Policy> policies = policyService.getAllPolicies();
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		if(policies != null) {
+		if(policies != null && policies.size() >0) {
 			dataMap.put("message", "Policies found successfully");
 			dataMap.put("status", "1");
 		}else {
