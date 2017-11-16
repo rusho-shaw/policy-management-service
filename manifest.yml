@@ -1,10 +1,10 @@
 applications:
-- name: rs-policy-service
+- name: rusho-policy-service
   disk_quota: 1G
   instances: 1
   memory: 768M
   routes:
-  - route: rusho-policy-service.cfapps.io
+  - route: rs-policy-service.cfapps.io
   services:
   - mongo-mlab
   stack: cflinuxfs2
