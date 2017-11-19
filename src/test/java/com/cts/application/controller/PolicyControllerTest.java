@@ -11,15 +11,13 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.cts.application.document.Policy;
+import com.cts.application.exception.PolicyServiceException;
 import com.cts.application.service.PolicyService;
 
 @RunWith(SpringRunner.class)
@@ -124,6 +122,21 @@ public class PolicyControllerTest {
 
 		String expected = "{\"message\":\"Policy not updated\",\"status\":\"0\"}";
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+	}
+	
+	@Test
+	public void getPolicyException() throws Exception {
+
+		Mockito.when(policyService.getPolicy(Matchers.any(String.class))).thenThrow(new PolicyServiceException("Policy Exception"));
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/policies/getPolicy/")
+				.param("policyId", "1");
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		System.out.println("getPolicyException......"+result.getResponse().getContentAsString());
+
+		String expected = "{\"errorMessage\":\"Policy Exception\",\"status\":\"0\"}";
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+
 	}
 
 }
