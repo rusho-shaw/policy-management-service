@@ -6,7 +6,7 @@ applications:
   routes:
   - route: rs-policy-service.cfapps.io
   services:
-  - mongo-mlab
+  - mongo-policy
   stack: cflinuxfs2
   timeout: 60
   path: target\policy-management-service-0.1.0.jar
